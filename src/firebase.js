@@ -18,5 +18,5 @@ const db = getFirestore(firebaseApp); // Firestore এর জন্য ডাট
 const auth = getAuth(firebaseApp); // Auth এর জন্য ইন্সট্যান্স
 
 // এক্সপোর্ট করা হচ্ছে যাতে অন্য ফাইলগুলোতে ব্যবহার করা যায়
-export { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut };
-export { db };
+export {db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut };
+//export { db };
