@@ -133,7 +133,7 @@ export const saveDelivery = async (deliveries, date) => {
   }
 };*/
 
-export const fetchDeliveries = async () => {
+/*export const fetchDeliveries = async () => {
   try {
     const currentUser = auth.currentUser; // Get current logged-in user
     if (!currentUser) throw new Error("User not logged in");
@@ -149,6 +149,28 @@ export const fetchDeliveries = async () => {
     console.error("Error fetching deliveries:", error.message);
     throw new Error(error.message);
   }
+};*/
+export const fetchDeliveries = () => {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        try {
+          const q = query(
+            collection(db, 'deliveries'),
+            where('userId', '==', currentUser.uid)
+          );
+          const querySnapshot = await getDocs(q);
+          const deliveries = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          resolve(deliveries);
+        } catch (error) {
+          console.error("Error fetching deliveries:", error.message);
+          reject(new Error("Error fetching deliveries: " + error.message));
+        }
+      } else {
+        reject(new Error("User not logged in"));
+      }
+    });
+  });
 };
 
 export const deleteDelivery = async (id) => {
