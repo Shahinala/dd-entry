@@ -82,7 +82,7 @@ export const updateDelivery = async (deliveryId, deliveries, userId) => {
     throw new Error(error.message);
   }
 };*/
-export const saveDelivery = async (deliveries, date) => {
+/* const saveDelivery = async (deliveries, date) => {
   try {
     const docRef = await addDoc(collection(db, 'deliveries'), { deliveries, date });
     console.log("Delivery saved successfully with ID: ", docRef.id);
@@ -90,12 +90,46 @@ export const saveDelivery = async (deliveries, date) => {
     console.error("Error saving delivery:", error.message);
     throw new Error(error.message);
   }
+};*/
+export const saveDelivery = async (deliveries, date) => {
+  try {
+    const currentUser = auth.currentUser; // Get current logged-in user
+    if (!currentUser) throw new Error("User not logged in");
+
+    const docRef = await addDoc(collection(db, 'deliveries'), {
+      deliveries,
+      date,
+      userId: currentUser.uid // Save user ID with the delivery data
+    });
+    console.log("Delivery saved successfully with ID: ", docRef.id);
+  } catch (error) {
+    console.error("Error saving delivery:", error.message);
+    throw new Error(error.message);
+  }
 };
 
-export const fetchDeliveries = async () => {
+/*export const fetchDeliveries = async () => {
   try {
     
     const querySnapshot = await getDocs(collection(db, 'deliveries'));
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error("Error fetching deliveries:", error.message);
+    throw new Error(error.message);
+  }
+};*/
+
+export const fetchDeliveries = async () => {
+  try {
+    const currentUser = auth.currentUser; // Get current logged-in user
+    if (!currentUser) throw new Error("User not logged in");
+
+    const q = query(
+      collection(db, 'deliveries'),
+      where('userId', '==', currentUser.uid) // Fetch only deliveries for the logged-in user
+    );
+    
+    const querySnapshot = await getDocs(q);
     return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error("Error fetching deliveries:", error.message);
