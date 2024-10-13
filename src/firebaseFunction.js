@@ -107,7 +107,7 @@ export const updateDelivery = async (deliveryId, deliveries, userId) => {
     throw new Error(error.message);
   }
 };*/
-export const saveDelivery = async (deliveries, date) => {
+/*export const saveDelivery = async (deliveries, date) => {
   try {
     const userId = auth.currentUser.uid; // Get the current user ID
     const docRef = await addDoc(collection(db, 'deliveries'), {
@@ -120,7 +120,7 @@ export const saveDelivery = async (deliveries, date) => {
     console.error("Error saving delivery:", error.message);
     throw new Error(error.message);
   }
-};
+};*/
 
 /*export const fetchDeliveries = async () => {
   try {
@@ -133,7 +133,7 @@ export const saveDelivery = async (deliveries, date) => {
   }
 };*/
 
-/*export const fetchDeliveries = async () => {
+export const fetchDeliveries = async () => {
   try {
     const currentUser = auth.currentUser; // Get current logged-in user
     if (!currentUser) throw new Error("User not logged in");
@@ -149,7 +149,7 @@ export const saveDelivery = async (deliveries, date) => {
     console.error("Error fetching deliveries:", error.message);
     throw new Error(error.message);
   }
-};*/
+};
 /*export const fetchDeliveries = () => {
   return new Promise((resolve, reject) => {
     onAuthStateChanged(auth, async (currentUser) => {
