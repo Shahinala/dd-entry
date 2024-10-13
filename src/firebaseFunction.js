@@ -92,7 +92,7 @@ export const saveDelivery = async (deliveries, date) => {
   }
 };
 
-export const fetchDeliveries = async (userId) => {
+export const fetchDeliveries = async () => {
   try {
     const q = query(collection(db, 'deliveries'), where("userId", "==", userId));
     const querySnapshot = await getDocs(collection(q));
