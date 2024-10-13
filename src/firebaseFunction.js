@@ -122,7 +122,7 @@ export const updateDelivery = async (deliveryId, deliveries, userId) => {
   }
 };*/
 
-/*export const fetchDeliveries = async () => {
+export const fetchDeliveries = async () => {
   try {
     
     const querySnapshot = await getDocs(collection(db, 'deliveries'));
@@ -131,9 +131,9 @@ export const updateDelivery = async (deliveryId, deliveries, userId) => {
     console.error("Error fetching deliveries:", error.message);
     throw new Error(error.message);
   }
-};*/
+};
 
-export const fetchDeliveries = async () => {
+/*export const fetchDeliveries = async () => {
   try {
     const currentUser = auth.currentUser; // Get current logged-in user
     if (!currentUser) throw new Error("User not logged in");
@@ -149,7 +149,7 @@ export const fetchDeliveries = async () => {
     console.error("Error fetching deliveries:", error.message);
     throw new Error(error.message);
   }
-};
+};*/
 /*export const fetchDeliveries = () => {
   return new Promise((resolve, reject) => {
     onAuthStateChanged(auth, async (currentUser) => {
