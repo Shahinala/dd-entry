@@ -91,7 +91,7 @@ export const updateDelivery = async (deliveryId, deliveries, userId) => {
     throw new Error(error.message);
   }
 };*/
-export const saveDelivery = async (deliveries, date) => {
+/*export const saveDelivery = async (deliveries, date) => {
   try {
     const currentUser = auth.currentUser; // Get current logged-in user
     if (!currentUser) throw new Error("User not logged in");
@@ -100,6 +100,20 @@ export const saveDelivery = async (deliveries, date) => {
       deliveries,
       date,
       userId: currentUser.uid // Save user ID with the delivery data
+    });
+    console.log("Delivery saved successfully with ID: ", docRef.id);
+  } catch (error) {
+    console.error("Error saving delivery:", error.message);
+    throw new Error(error.message);
+  }
+};*/
+export const saveDelivery = async (deliveries, date) => {
+  try {
+    const userId = auth.currentUser.uid; // Get the current user ID
+    const docRef = await addDoc(collection(db, 'deliveries'), {
+      deliveries,
+      date,
+      userId,  // Save userId in the document
     });
     console.log("Delivery saved successfully with ID: ", docRef.id);
   } catch (error) {
