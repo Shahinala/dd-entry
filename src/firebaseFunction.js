@@ -72,7 +72,7 @@ export const updateDelivery = async (deliveryId, deliveries, userId) => {
 
 
 //............
-export const fetchDeliveries = async (userId) => {
+/*export const fetchDeliveries = async (userId) => {
   try {
     const q = query(collection(db, 'deliveries'), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
@@ -81,7 +81,7 @@ export const fetchDeliveries = async (userId) => {
     console.error("Error fetching deliveries:", error.message);
     throw new Error(error.message);
   }
-};
+};*/
 export const saveDelivery = async (deliveries, date) => {
   try {
     const docRef = await addDoc(collection(db, 'deliveries'), { deliveries, date });
@@ -92,8 +92,9 @@ export const saveDelivery = async (deliveries, date) => {
   }
 };
 
-export const fetchDeliveries = async () => {
+export const fetchDeliveries = async (userId) => {
   try {
+    const q = query(collection(db, 'deliveries'), where("userId", "==", userId));
     const querySnapshot = await getDocs(collection(db, 'deliveries'));
     return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
