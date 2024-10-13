@@ -94,8 +94,8 @@ export const saveDelivery = async (deliveries, date) => {
 
 export const fetchDeliveries = async () => {
   try {
-    const q = query(collection(db, 'deliveries'), where("userId", "==", userId));
-    const querySnapshot = await getDocs(collection(q));
+    
+    const querySnapshot = await getDocs(collection(db, 'deliveries'));
     return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error("Error fetching deliveries:", error.message);
