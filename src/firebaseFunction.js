@@ -84,6 +84,7 @@ export const updateDelivery = async (deliveryId, deliveries, userId) => {
 };*/
  const saveDelivery = async (deliveries, date) => {
   try {
+    const querySnapshot = await getDocs(db, 'deliveries');
     const docRef = await addDoc(collection(db, 'deliveries'), { deliveries, date });
     console.log("Delivery saved successfully with ID: ", docRef.id);
   } catch (error) {
